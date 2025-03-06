@@ -1,22 +1,31 @@
-import React from 'react';
-import {__} from "../lang/setup";
-import Card from "../components/common/Card";
+import React, { useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import TrendingTopics from '../components/TrendingTopics';
+import BalanceSection from '../components/BalanceSection';
+import RightSidebar from '../components/RightSidebar';
 
-const Home = () => {
-    return (
-        <div className="min-h-screen flex items-center justify-center text-white  bg-gray-900">
-            <div className={""}>
-                <h1 className={"capitalize text-4xl"}>{__("hello world")}</h1>
-                <h2 className={"capitalize"}>{__('here some examples for using the common components')}</h2>
-                <section className={"flex items-between justify-center"}>
-                    <p>
-                        <Card classes={"text-gray-900"} title={__("card title")}/>
-                    </p>
-                </section>
-            </div>
-        </div>
+const DashboardUI = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    );
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const accounts = Array(4).fill({
+    name: "Main account",
+    amount: 413
+  });
+
+  return (
+    <div className="flex h-screen w-full bg-gray-50 relative">
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className="flex-1 overflow-auto pt-16 md:pt-0">
+        <TrendingTopics />
+        <BalanceSection accounts={accounts} />
+      </div>
+      <RightSidebar />
+    </div>
+  );
 };
 
-export default Home;
+export default DashboardUI;
